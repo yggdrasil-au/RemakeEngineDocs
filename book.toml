@@ -1,0 +1,11 @@
+[book]
+authors = ["samarixum"]
+language = "en"
+src = "src"
+title = "Remake Engine Docs"
+multilingual = false
+[output.html]
+default-theme = "Coal"
+preferred-dark-theme = "Ayu"
+git-repository-url = "https://github.com/Superposition28/RemakeEngineDocs"
+edit-url-template = "https://github.com/Superposition28/RemakeEngineDocs/edit/main/docs/src/{path}"
