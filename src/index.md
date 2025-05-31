@@ -2,8 +2,6 @@
 
 **RemakeEngine** is a modular and extensible reverse-engineering toolkit for console game assets, focused on structured extraction, conversion, and reorganization of data from platforms like PlayStation 2 and PlayStation 3.
 
-Whether you're a modder, preservationist, or technical developer, this tool helps you safely explore and transform game content using a consistent, scriptable workflow.
-
 ---
 
 ## 🚀 What is RemakeEngine?
@@ -23,7 +21,6 @@ RemakeEngine is a Python-based CLI and script-driven framework that allows users
 This tool is ideal for:
 
 - Reverse engineers exploring game file formats
-- Modders seeking to replace or improve game assets
 - Developers building remakes, decompilations, or enhanced ports
 - Preservationists who want to unpack and document game internals
 
@@ -37,6 +34,6 @@ RemakeEngine does **not** include any proprietary game files and is provided for
 
 ## 🙌 Contributions & Feedback
 
-Have ideas or improvements? Found a bug? Visit the [GitHub repository](https://github.com/yourusername/RemakeEngine) to contribute or open an issue.
+Have ideas or improvements? Found a bug? Visit the [GitHub repository](https://github.com/superposition28/RemakeEngine) to contribute or open an issue.
 
 Happy unpacking! 🚧🔍
