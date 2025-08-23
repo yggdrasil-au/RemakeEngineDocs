@@ -5,10 +5,6 @@
 ---
 
 - [**Introduction**](introduction/README.md)
-    - [What is Remake Engine?](introduction/what_is_remake_engine.md)
-    - [Key Features](introduction/key_features.md)
-    - [How It Works](introduction/how_it_works.md)
-    - [Community Focus](introduction/community_focus.md)
 
 - [**Getting Started**](getting_started/README.md)
     - [Prerequisites](getting_started/prerequisites.md)
@@ -52,6 +48,7 @@
     - [`Utils/printer.py`](development/utils_printer.md)
 
 - [**License & Legal**](license_legal/README.md)
-    - [License Information](license_legal/license.md) - [Legal Disclaimer](license_legal/disclaimer.md)
+    - [License Information](license_legal/license.md)
+    - [Legal Disclaimer](license_legal/disclaimer.md)
 
 ---
