@@ -7,7 +7,7 @@ This document provides guidelines for contributing. Please read it carefully.
 ## Getting Started for Contributors
 
 1.  **Fork the Repository:**
-	Start by forking the [main Remake Engine repository](https://github.com/Superposition28/RemakeEngine) to your own GitHub account.
+        Start by forking the [main Remake Engine repository](https://github.com/yggdrasil-au/RemakeEngine) to your own GitHub account.
 
 2.  **Clone Your Fork:**
 	Clone your forked repository to your local machine:
@@ -17,15 +17,11 @@ This document provides guidelines for contributing. Please read it carefully.
 	```
 
 3.  **Set Up Your Environment:**
-	* Ensure you have Python installed (preferably version 3.8+). The project is developed with Python 3.13.2.
-	* Install required Python packages:
-	  ```pwsh
-	  pip install questionary
-	  # Add any other dependencies listed in requirements.txt or noted in the main README
-	  ```
-	* **Configure `project.json`:**
-		* If it doesn't exist, create a `project.json` file in the root of your cloned repository. You can often copy `project.json.example` if available.
-		* Modify `project.json` with your local absolute paths for game sources or other global settings. This file is typically user-specific and should often be listed in your global or repository `.gitignore` file.
+        * Ensure you have Python installed (the project is developed with Python 3.13.2).
+        * All required packages are bundled in the repository’s `runtime` directory, so no additional `pip install` step is needed for basic usage.
+        * **Configure `project.json`:**
+                * If it doesn't exist, create a `project.json` file in the root of your cloned repository. You can often copy `project.json.example` if available.
+                * Modify `project.json` with your local absolute paths for game sources or other global settings. This file is typically user-specific and should often be listed in your global or repository `.gitignore` file.
 
 4.  **Create a New Branch:**
 	Create a new branch for your contribution (e.g., adding a new game):

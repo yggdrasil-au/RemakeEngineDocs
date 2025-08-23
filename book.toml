@@ -7,5 +7,5 @@ multilingual = false
 [output.html]
 default-theme = "Coal"
 preferred-dark-theme = "Ayu"
-git-repository-url = "https://github.com/Superposition28/RemakeEngineDocs"
-edit-url-template = "https://github.com/Superposition28/RemakeEngineDocs/edit/main/docs/src/{path}"
+git-repository-url = "https://github.com/yggdrasil-au/RemakeEngineDocs"
+edit-url-template = "https://github.com/yggdrasil-au/RemakeEngineDocs/edit/main/src/{path}"

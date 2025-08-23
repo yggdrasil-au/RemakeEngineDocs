@@ -34,6 +34,6 @@ RemakeEngine does **not** include any proprietary game files and is provided for
 
 ## 🙌 Contributions & Feedback
 
-Have ideas or improvements? Found a bug? Visit the [GitHub repository](https://github.com/superposition28/RemakeEngine) to contribute or open an issue.
+Have ideas or improvements? Found a bug? Visit the [GitHub repository](https://github.com/yggdrasil-au/RemakeEngine) to contribute or open an issue.
 
 Happy unpacking! 🚧🔍
