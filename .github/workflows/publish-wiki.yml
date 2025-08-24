@@ -19,26 +19,34 @@ jobs:
       MDBOOK_SRC_DIR: book/src
       TARGET_OWNER: yggdrasil-au
       TARGET_REPO: RemakeEngine
+      MDBOOK_VERSION: "0.4.36"  # match the sample workflow's version
 
     steps:
       - name: Checkout mdBook repo
         uses: actions/checkout@v4
 
-      # Optional: install/build mdBook (not required just to sync Markdown)
-      - name: Install mdBook (optional)
+      # Install Rust toolchain & mdBook via cargo (like the Pages sample)
+      - name: Install mdBook (via rustup/cargo)
         shell: pwsh
         run: |
           $ErrorActionPreference = "Stop"
-          $version = "v0.4.40" # change as desired
-          $asset   = "mdBook-$version-x86_64-pc-windows-msvc.zip"
-          $url     = "https://github.com/rust-lang/mdBook/releases/download/$version/$asset"
-          $destDir = "$env:USERPROFILE\bin"
-          New-Item -ItemType Directory -Force -Path $destDir | Out-Null
-          $zipPath = "$env:RUNNER_TEMP\mdbook.zip"
-          Invoke-WebRequest -Uri $url -OutFile $zipPath
-          Expand-Archive -Path $zipPath -DestinationPath $destDir -Force
-          # Ensure mdbook.exe is on PATH for subsequent steps
-          echo "$destDir" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
+          # Install rustup (non-interactive)
+          Invoke-WebRequest -Uri https://win.rustup.rs/x86_64 -OutFile rustup-init.exe
+          Start-Process -FilePath .\rustup-init.exe -ArgumentList "-y" -NoNewWindow -Wait
+
+          # Ensure cargo bin directory is on PATH for subsequent steps
+          $cargoBin = "$env:USERPROFILE\.cargo\bin"
+          if (-not (Test-Path $cargoBin)) { throw "Cargo bin path not found: $cargoBin" }
+          echo $cargoBin | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
+          # Update toolchain (mirrors the sample’s 'rustup update')
+          rustup update
+
+          # Install mdBook at the requested version
+          cargo install --version $env:MDBOOK_VERSION mdbook
+
+          # Verify
           mdbook --version
 
       - name: Build mdBook (optional)
