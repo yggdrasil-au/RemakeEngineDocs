@@ -10,8 +10,7 @@ on:
 
 jobs:
   publish:
-    runs-on: ubuntu-latest
-
+    runs-on: windows-latest
     # We'll use the GH_TOKEN secret for cross-repo wiki push.
     permissions:
       contents: read
@@ -27,72 +26,101 @@ jobs:
 
       # Optional: install/build mdBook (not required just to sync Markdown)
       - name: Install mdBook (optional)
+        shell: pwsh
         run: |
-          curl -sSL https://github.com/rust-lang/mdBook/releases/latest/download/mdbook-linux.tar.gz \
-          | tar -xz -C /usr/local/bin
+          $ErrorActionPreference = "Stop"
+          $version = "v0.4.40" # change as desired
+          $asset   = "mdBook-$version-x86_64-pc-windows-msvc.zip"
+          $url     = "https://github.com/rust-lang/mdBook/releases/download/$version/$asset"
+          $destDir = "$env:USERPROFILE\bin"
+          New-Item -ItemType Directory -Force -Path $destDir | Out-Null
+          $zipPath = "$env:RUNNER_TEMP\mdbook.zip"
+          Invoke-WebRequest -Uri $url -OutFile $zipPath
+          Expand-Archive -Path $zipPath -DestinationPath $destDir -Force
+          # Ensure mdbook.exe is on PATH for subsequent steps
+          echo "$destDir" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          mdbook --version
 
       - name: Build mdBook (optional)
-        run: mdbook build "$(dirname "$MDBOOK_SRC_DIR")"
+        shell: pwsh
+        run: |
+          $bookRoot = Split-Path -Path "$env:MDBOOK_SRC_DIR" -Parent
+          mdbook build $bookRoot
 
       - name: Clone target Wiki
+        shell: pwsh
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          set -euo pipefail
-          WIKI_URL="https://x-access-token:${GH_TOKEN}@github.com/${{ env.TARGET_OWNER }}/${{ env.TARGET_REPO }}.wiki.git"
-          git clone "$WIKI_URL" wiki
+          $ErrorActionPreference = "Stop"
+          $wikiUrl = "https://x-access-token:$env:GH_TOKEN@github.com/${{ env.TARGET_OWNER }}/${{ env.TARGET_REPO }}.wiki.git"
+          git clone $wikiUrl wiki
           # Clear wiki except .git
-          find wiki -mindepth 1 -maxdepth 1 ! -name ".git" -exec rm -rf {} +
+          Get-ChildItem -Path wiki -Force |
+            Where-Object { $_.Name -ne ".git" } |
+            Remove-Item -Recurse -Force
 
       - name: Copy Markdown from mdBook to Wiki
+        shell: pwsh
         run: |
-          set -euo pipefail
-          cp -R "${MDBOOK_SRC_DIR}/." wiki/
+          $ErrorActionPreference = "Stop"
+          Copy-Item -Path "$env:MDBOOK_SRC_DIR\*" -Destination "wiki" -Recurse -Force
 
       - name: Generate _Sidebar.md from SUMMARY.md
+        shell: pwsh
         run: |
-          python3 - <<'PY'
+          $code = @'
           import re, pathlib, sys, os
           src = pathlib.Path(os.environ["MDBOOK_SRC_DIR"])
           summ = src / "SUMMARY.md"
           out = pathlib.Path("wiki/_Sidebar.md")
           if not summ.exists():
-            out.write_text("<!-- No SUMMARY.md found -->\n", encoding="utf-8")
-            sys.exit(0)
+              out.write_text("<!-- No SUMMARY.md found -->\n", encoding="utf-8")
+              sys.exit(0)
           text = summ.read_text(encoding="utf-8")
           lines_out = []
           for line in text.splitlines():
-            m = re.match(r"(\s*)\*\s*\[(.+?)\]\((.+?)\)", line)
-            if m:
-              indent, title, href = m.groups()
-              h = href.strip()
-              # Map common home pages
-              if h.lower() in ("readme.md", "index.md"):
-                h = "Home.md"
-              lines_out.append(f"{indent}* [[{title}|{h}]]")
-            elif line.strip().startswith("#"):
-              lines_out.append(line.strip())
+              m = re.match(r"(\s*)\*\s*\[(.+?)\]\((.+?)\)", line)
+              if m:
+                  indent, title, href = m.groups()
+                  h = href.strip()
+                  if h.lower() in ("readme.md", "index.md"):
+                      h = "Home.md"
+                  lines_out.append(f"{indent}* [[{title}|{h}]]")
+              elif line.strip().startswith("#"):
+                  lines_out.append(line.strip())
           out.write_text("\n".join(lines_out) + "\n", encoding="utf-8")
-          PY
+          '@
+          Set-Content -Path sidebar.py -Value $code -Encoding UTF8
+          python sidebar.py
 
       - name: Ensure Home.md exists
+        shell: pwsh
         run: |
-          set -euo pipefail
-          if [ -f wiki/README.md ]; then mv wiki/README.md wiki/Home.md; fi
-          if [ -f wiki/index.md ]; then mv wiki/index.md wiki/Home.md; fi
+          if (Test-Path "wiki\README.md") { Move-Item -Force "wiki\README.md" "wiki\Home.md" }
+          if (Test-Path "wiki\index.md")  {
+            if (-not (Test-Path "wiki\Home.md")) {
+              Move-Item -Force "wiki\index.md" "wiki\Home.md"
+            } else {
+              # If Home.md already exists, remove index.md duplicate
+              Remove-Item -Force "wiki\index.md"
+            }
+          }
 
       - name: Commit & push to Wiki
+        shell: pwsh
         env:
           GIT_AUTHOR_NAME: github-actions
           GIT_AUTHOR_EMAIL: actions@users.noreply.github.com
           GIT_COMMITTER_NAME: github-actions
           GIT_COMMITTER_EMAIL: actions@users.noreply.github.com
         run: |
-          cd wiki
+          Set-Location wiki
           git add -A
-          if git diff --cached --quiet; then
+          if (git diff --cached --quiet) {
             echo "No changes to publish."
-          else
-            git commit -m "Sync wiki from RemakeEngineDocs @ ${GITHUB_SHA::7}"
+          } else {
+            $sha7 = $env:GITHUB_SHA.Substring(0,7)
+            git commit -m "Sync wiki from RemakeEngineDocs @ $sha7"
             git push
-          fi
+          }
