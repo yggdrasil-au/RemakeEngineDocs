@@ -1,0 +1,98 @@
+name: Publish mdBook to RemakeEngine Wiki
+
+on:
+  push:
+    branches: [ main ]          # adjust if your mdBook repo uses a different default branch
+    paths:
+      - "book/**"               # change if your mdBook source lives elsewhere
+      - ".github/workflows/publish-wiki.yml"
+  workflow_dispatch: {}
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    # We'll use the GH_TOKEN secret for cross-repo wiki push.
+    permissions:
+      contents: read
+
+    env:
+      MDBOOK_SRC_DIR: book/src
+      TARGET_OWNER: yggdrasil-au
+      TARGET_REPO: RemakeEngine
+
+    steps:
+      - name: Checkout mdBook repo
+        uses: actions/checkout@v4
+
+      # Optional: install/build mdBook (not required just to sync Markdown)
+      - name: Install mdBook (optional)
+        run: |
+          curl -sSL https://github.com/rust-lang/mdBook/releases/latest/download/mdbook-linux.tar.gz \
+          | tar -xz -C /usr/local/bin
+
+      - name: Build mdBook (optional)
+        run: mdbook build "$(dirname "$MDBOOK_SRC_DIR")"
+
+      - name: Clone target Wiki
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          set -euo pipefail
+          WIKI_URL="https://x-access-token:${GH_TOKEN}@github.com/${{ env.TARGET_OWNER }}/${{ env.TARGET_REPO }}.wiki.git"
+          git clone "$WIKI_URL" wiki
+          # Clear wiki except .git
+          find wiki -mindepth 1 -maxdepth 1 ! -name ".git" -exec rm -rf {} +
+
+      - name: Copy Markdown from mdBook to Wiki
+        run: |
+          set -euo pipefail
+          cp -R "${MDBOOK_SRC_DIR}/." wiki/
+
+      - name: Generate _Sidebar.md from SUMMARY.md
+        run: |
+          python3 - <<'PY'
+          import re, pathlib, sys, os
+          src = pathlib.Path(os.environ["MDBOOK_SRC_DIR"])
+          summ = src / "SUMMARY.md"
+          out = pathlib.Path("wiki/_Sidebar.md")
+          if not summ.exists():
+            out.write_text("<!-- No SUMMARY.md found -->\n", encoding="utf-8")
+            sys.exit(0)
+          text = summ.read_text(encoding="utf-8")
+          lines_out = []
+          for line in text.splitlines():
+            m = re.match(r"(\s*)\*\s*\[(.+?)\]\((.+?)\)", line)
+            if m:
+              indent, title, href = m.groups()
+              h = href.strip()
+              # Map common home pages
+              if h.lower() in ("readme.md", "index.md"):
+                h = "Home.md"
+              lines_out.append(f"{indent}* [[{title}|{h}]]")
+            elif line.strip().startswith("#"):
+              lines_out.append(line.strip())
+          out.write_text("\n".join(lines_out) + "\n", encoding="utf-8")
+          PY
+
+      - name: Ensure Home.md exists
+        run: |
+          set -euo pipefail
+          if [ -f wiki/README.md ]; then mv wiki/README.md wiki/Home.md; fi
+          if [ -f wiki/index.md ]; then mv wiki/index.md wiki/Home.md; fi
+
+      - name: Commit & push to Wiki
+        env:
+          GIT_AUTHOR_NAME: github-actions
+          GIT_AUTHOR_EMAIL: actions@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions
+          GIT_COMMITTER_EMAIL: actions@users.noreply.github.com
+        run: |
+          cd wiki
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to publish."
+          else
+            git commit -m "Sync wiki from RemakeEngineDocs @ ${GITHUB_SHA::7}"
+            git push
+          fi
