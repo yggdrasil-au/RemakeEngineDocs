@@ -1,9 +1,9 @@
 # Operations Manifests (`operations.json` / `operations.toml`)
 
-Each module exposes its workflows through an operations manifest. The engine supports:
+Each module exposes its workflows through an operations manifest. EngineNet supports:
 
-- **JSON** ? historically used by early modules.
-- **TOML** ? preferred for new work thanks to clearer grouping and multi-line support.
+- **JSON** - historically used by early modules.
+- **TOML** - preferred for new work thanks to clearer grouping and multi-line support.
 
 Both formats map group names to lists of operation objects. When no groups are defined the engine treats the manifest as a flat list.
 

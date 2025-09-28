@@ -4,14 +4,14 @@ A typical module layout looks like this:
 
 ```
 RemakeRegistry/Games/MyGame/
-?? operations.toml
-?? config.toml
-?? Scripts/
-?  ?? extract.lua
-?  ?? convert_audio.js
-?? Tools/ (optional)
-?  ?? custom_tool.exe
-?? README.md
+|-- operations.toml
+|-- config.toml
+|-- Scripts/
+|   |-- extract.lua
+|   |-- convert_audio.js
+|-- Tools/ (optional)
+|   |-- custom_tool.exe
+|-- README.md
 ```
 
 Guidelines:

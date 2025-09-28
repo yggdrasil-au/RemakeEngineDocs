@@ -6,7 +6,7 @@ These docs explain how the engine is structured, how you can run it, and how to 
 
 ## What the Engine Provides
 - **Configuration-first workflows** written in TOML or JSON so you do not need to modify the core code for each game.
-- **Embedded Lua and JavaScript interpreters** with shared helper modules for working with files, prompts, registries, and HTTP APIs.
+- **Embedded Lua and JavaScript interpreters** with shared helper modules for filesystem access, prompts, process execution, and SQLite integration.
 - **Built-in helpers** that cover common extraction and conversion tasks (QuickBMS, TXD extraction, media transcoding, validation, directory flattening).
 - **Extensible tool management** capable of downloading platform-specific binaries declared in module manifests.
 

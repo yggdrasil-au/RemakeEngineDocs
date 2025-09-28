@@ -20,8 +20,9 @@ dotnet run --project EngineNet -- --game_module demo --script_type engine --scri
 
 Behind the scenes the downloader:
 1. Reads the module TOML, collecting tool definitions.
-2. Looks up platform-specific URLs and hashes in `RemakeRegistry/Tools.json` (downloading it from GitHub if missing).
+2. Looks up platform-specific URLs and hashes in `RemakeRegistry/Tools.json` (fetching it from GitHub if missing).
 3. Downloads archives with progress output and optional checksum verification.
 4. Unpacks supported formats and updates `Tools.local.json` with resolved executable paths.
+5. Obeys prompt answers such as `force_download` to control whether existing archives are re-fetched.
 
 You can customise destinations, provide alternative mirrors, or force re-downloads via prompts exposed in the manifest.

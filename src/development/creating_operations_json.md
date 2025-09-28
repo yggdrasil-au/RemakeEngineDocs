@@ -8,4 +8,4 @@ When building the manifest:
 4. **Leverage placeholder resolution** rather than hardcoding paths. Combine global (`project.json`) and module (`config.toml`) values.
 5. **Consider run-all behaviour.** Mark frequently executed operations with `run-all = true` so they participate in the one-click workflow.
 
-Always validate the manifest by running it end-to-end. The CLI?s stream output and prompt summaries help catch typos early.
+Always validate the manifest by running it end-to-end. The CLI's streamed output and prompt summaries help catch typos early.

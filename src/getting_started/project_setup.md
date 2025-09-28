@@ -1,6 +1,6 @@
 # Project Setup (`project.json`)
 
-`project.json` stores machine-specific settings such as project paths, default tool overrides, or user preferences. The engine creates a minimal file the first time you run it, but you can also craft one manually.
+`project.json` stores machine-specific settings such as project paths, default tool overrides, or user preferences. EngineNet creates a minimal file the first time it starts (or when a script calls `sdk.ensure_project_config`), but you can replace it with a richer configuration at any time.
 
 Example skeleton:
 
@@ -21,6 +21,7 @@ Example skeleton:
 ```
 
 Guidelines:
-- Keep the file out of version control; it usually belongs in your personal `.gitignore`.
-- Values can be referenced from manifests using placeholders such as `{{RemakeEngine.Directories.SourceRoot}}`.
-- The engine reloads this file after each operation so scripts can persist changes when needed.
+- Keep the file out of version control; add it to your personal `.gitignore`.
+- Values are available to manifests through placeholders such as `{{RemakeEngine.Directories.SourceRoot}}`.
+- Scripts can update settings by writing to `project.json`; the engine reloads it after every operation so later steps see the changes.
+- `CommandBuilder` also projects `module_path` and `project_path` into `RemakeEngine.Config` automatically, so scripts that expect those legacy keys continue to work.
