@@ -1,16 +1,26 @@
 # Project Setup (`project.json`)
 
-RemakeEngine stores user-specific paths and preferences in a `project.json` file placed at the repository root. If the file does not exist the engine will create one on first launch.
+`project.json` stores machine-specific settings such as project paths, default tool overrides, or user preferences. The engine creates a minimal file the first time you run it, but you can also craft one manually.
 
-Example structure:
+Example skeleton:
+
 ```json
 {
   "RemakeEngine": {
+    "Config": {
+      "project_path": "C:/Projects/RemakeEngine"
+    },
     "Directories": {
-      "SourcePath": "D:/GameData",
-      "OutputPath": "D:/RemakeOutput"
+      "SourceRoot": "D:/Games/Example"
+    },
+    "Tools": {
+      "ffmpeg": "C:/Tools/ffmpeg/bin/ffmpeg.exe"
     }
   }
 }
 ```
-Values from this file can be referenced in configuration using placeholders such as `{{RemakeEngine.Directories.SourcePath}}`.
+
+Guidelines:
+- Keep the file out of version control; it usually belongs in your personal `.gitignore`.
+- Values can be referenced from manifests using placeholders such as `{{RemakeEngine.Directories.SourceRoot}}`.
+- The engine reloads this file after each operation so scripts can persist changes when needed.

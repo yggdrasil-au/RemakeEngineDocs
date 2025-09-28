@@ -1,52 +1,19 @@
-# Writing Game-Specific Scripts
+# Writing Script Actions
 
-Scripts executed by operations should be small and focused. Use the language you prefer (Python, Lua, etc.). Exit with non‑zero status on failure so the engine can report errors.
+## Lua
+- Place scripts under `Scripts/` and reference them with `script_type = "lua"`.
+- Use the injected globals (`tool`, `argv`, `emit`, `prompt`, `progress`) for engine integration.
+- Require built-in modules such as `sdk.fs`, `sdk.json`, or `sdk.sql` for reusable helpers.
 
-Scripts can rely on placeholders expanded by the engine, allowing paths and options to be passed in dynamically.
+## JavaScript
+- Use `script_type = "js"` to run scripts inside the Jint engine.
+- The helper surface mirrors the Lua SDK, including tool resolution and EngineSdk wrappers.
 
-## Lua Scripts
+## External executables
+- For legacy Python or third-party tools set `script_type` to the executable name (e.g., `python`, `quickbms`).
+- Provide arguments via `args` and rely on placeholders to inject paths.
 
-When the script file ends with `.lua`, it runs inside the embedded MoonSharp interpreter. The engine injects the following helpers:
-
-- `tool(name)` – resolve a registered tool to its absolute path
-- `argv` – string array of arguments passed to the script
-- `emit(event, data?)` – emit a structured engine event
-- `warn(message)` / `error(message)` – convenience logging
-- `prompt(message, id?, secret?) -> string` – interactive prompt
-- `progress(total, id?, label?) -> handle` – create a progress handle; call `handle:Update(inc?)`
-- `sdk.*` – utility helpers for config and filesystem:
-  - `sdk.ensure_project_config(root) -> string` – ensure `project.json` exists; returns its path
-  - `sdk.validate_source_dir(path) -> bool` – check that a directory exists and is accessible
-  - `sdk.copy_dir(src, dst, overwrite?) -> bool` – recursive copy
-  - `sdk.move_dir(src, dst, overwrite?) -> bool` – move (cross‑drive safe)
-
-Example:
-
-```lua
--- Resolve tools and parse args
-local src = argv[1]
-local out = argv[2]
-
--- Ensure a project config at repo root
-local config_path = sdk.ensure_project_config(".")
-warn("Using config: " .. config_path)
-
--- Validate the source directory
-if not sdk.validate_source_dir(src) then
-  error("Invalid source directory: " .. tostring(src))
-  return 1
-end
-
--- Show progress while copying
-local p = progress(100, "copy", "Copying files")
-emit("info", { step = "copy", src = src, dst = out })
-local ok = sdk.copy_dir(src, out, true)
-p:Update(100)
-if not ok then
-  error("Copy failed")
-  return 1
-end
-
-warn("Done!")
-return 0
-```
+### Best practices
+- Emit structured events (`EngineSdk.Emit`) instead of raw prints when you need the GUI to react.
+- Fail fast with descriptive error messages; the engine turns non-zero exit codes into operation failures.
+- Keep scripts idempotent when practical. Users often rerun operations while iterating on manifests.

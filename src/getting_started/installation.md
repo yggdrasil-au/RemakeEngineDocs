@@ -1,9 +1,15 @@
 # Installation
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yggdrasil-au/RemakeEngine.git
-   cd RemakeEngine
-   ```
-2. (Optional) Verify the bundled runtime by running `python --version` inside the project.
-3. No further setup is required; dependencies are included.
+Clone the repository and restore dependencies using the .NET CLI. The examples below assume PowerShell, but the commands translate directly to other shells.
+
+```pwsh
+# Clone the repository
+git clone https://github.com/yggdrasil-au/RemakeEngine.git
+cd RemakeEngine
+
+# Restore, build, and run tests
+dotnet build RemakeEngine.sln
+dotnet test RemakeEngine.sln --nologo
+```
+
+The solution compiles the EngineNet console project and its Avalonia GUI. After the initial build you can run either project directly from the command line or through your preferred IDE.

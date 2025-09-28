@@ -1,13 +1,21 @@
 # Directory Setup
 
-Within `RemakeRegistry/Games/YourGame/` the following layout is recommended:
+A typical module layout looks like this:
 
 ```
-YourGame/
-├── operations.json
-├── init.py            # optional
-├── Scripts/
-│   └── ...
-└── data/              # optional assets or tables
+RemakeRegistry/Games/MyGame/
+?? operations.toml
+?? config.toml
+?? Scripts/
+?  ?? extract.lua
+?  ?? convert_audio.js
+?? Tools/ (optional)
+?  ?? custom_tool.exe
+?? README.md
 ```
-Keep paths relative so modules remain portable across systems.
+
+Guidelines:
+- Use descriptive names that include the platform when necessary (`MyGame PS3`).
+- Keep module-specific binaries in the module directory unless they are truly reusable.
+- Add additional subfolders (`Assets/`, `Config/`, etc.) as needed; manifests can reference them via placeholders.
+- Document any manual steps (e.g., copying disc files) in the module README.

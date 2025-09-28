@@ -1,7 +1,10 @@
-# Adding New Game Support
+# Adding a New Module
 
-1. Create a directory under `RemakeRegistry/Games/` named after the game and platform.
-2. Add an `operations.json` describing available operations.
-3. Write any required scripts in a `Scripts/` subfolder.
-4. Optionally provide an `init.py` to validate data on first run.
-5. Test the module thoroughly before submitting a pull request.
+1. **Create the module directory** under `RemakeRegistry/Games/<ModuleName>/`.
+2. **Author an operations manifest** (`operations.toml` preferred) to describe setup, extraction, conversion, and launch steps.
+3. **Provide `config.toml` placeholders** if the operations depend on module-specific values.
+4. **Add scripts or helper assets** under `Scripts/` or subfolders of your choosing.
+5. **Document the module** with a `README.md` that lists prerequisites, operation notes, and expected outputs.
+6. **Update `RemakeRegistry/Tools.json`** if you are introducing new downloadable tools.
+
+Use the development checklists below to make sure the module is reproducible and friendly to other contributors.

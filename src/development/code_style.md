@@ -1,6 +1,9 @@
-# Code Style & Best Practices
+# Code Style & Conventions
 
-- Follow [PEP 8](https://peps.python.org/pep-0008/) where possible.
-- Use descriptive names and add comments for complex logic.
-- Keep scripts cross‑platform; avoid hardcoded paths and Windows-only features.
-- Prefer small, reusable functions and avoid side effects.
+- **C# code** follows the project defaults (`dotnet format` friendly, nullable enabled, explicit usings). Keep changes small and update matching specs.
+- **Lua/JavaScript scripts** should favour readability over cleverness. Use descriptive function names, emit clear logs, and guard against missing files.
+- **Configuration files** use spaces for indentation. TOML is preferred for new manifests; JSON is still supported for legacy modules.
+- **Commit messages** follow Conventional Commits (`feat:`, `fix:`, `docs:`, `chore:`, etc.).
+- **Specs** in `EngineNet/specs/` must remain ASCII and include Purpose, Intent, Goals, Must Remain, Unimplemented, TODOs, and Issues.
+
+Before submitting a pull request run `dotnet build` and `dotnet test` to ensure CI will pass.

@@ -1,8 +1,10 @@
 # Prerequisites
 
-- **Python 3.13+** – the engine is developed and tested against Python 3.13.
-- **Git** – required to clone the repository and obtain updates.
-- **Supported platform tools** – Windows, macOS and Linux are supported; ensure your platform has access to the required command line utilities.
-- **Game assets** – you must legally own the game data you intend to process.
+Remake Engine targets .NET 8 and runs on Windows, macOS, and Linux. Before cloning the repository ensure the following tools are available:
 
-The `runtime` directory bundled with the repository includes all Python dependencies, so a standard `pip install` step is not required.
+- **.NET SDK 8.0 or newer** ? required to build and run EngineNet and the Avalonia UI.
+- **Git** ? used to clone the repository and manage updates.
+- **PowerShell 7+** (Windows) or a POSIX shell (macOS/Linux) ? the examples in this guide use PowerShell syntax, but any shell capable of invoking `dotnet` will work.
+- **Optional: Python 3.x** ? only needed when working with legacy modules or bespoke scripts that still depend on Python.
+
+For module authors, you will also need the external tools referenced by your operations (QuickBMS, FFmpeg, vgmstream, etc.). These can be acquired manually or via the Tools Downloader described later in this guide.

@@ -1,5 +1,10 @@
-# Adding Reusable Tools
+# Sharing Reusable Tools
 
-If a utility is useful across multiple games, place it under the top-level `Tools/` directory. Reference it from operations using a relative path, e.g. `Tools/QuickBMS/quickbms.exe`.
+If a tool benefits multiple modules:
 
-Discuss large additions with maintainers to avoid bloating the repository.
+1. Place archives or binaries under the top-level `Tools/` directory and document them in `RemakeRegistry/Tools.json`.
+2. Provide a manifest entry describing download URL, checksum, and extraction details so the Tools Downloader can install it automatically.
+3. Map the resolved executable path in `Tools.local.json` so scripts can call `tool("name")` without additional configuration.
+4. Keep licences and attribution files with the tool where required.
+
+For module-specific tools stick to the module directory to avoid polluting the shared workspace.
