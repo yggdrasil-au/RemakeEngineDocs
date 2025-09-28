@@ -7,6 +7,7 @@
    - `dotnet build RemakeEngine.sln`
    - `dotnet test RemakeEngine.sln`
    - Manual smoke tests for affected modules.
+   - Review the [CI & Release Workflows](ci_workflows.md) guide to confirm you have mirrored the GitHub Actions checks locally.
 5. **Open a pull request.** Summarise the change, list affected modules, and link the driving issue. Mention any follow-up work or TODOs left in specs.
 6. **Respond to review.** Be prepared to iterate based on maintainer feedback. Keep discussions anchored to module needs.
 

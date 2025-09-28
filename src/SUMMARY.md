@@ -43,6 +43,7 @@
     - [Sharing Reusable Tools](development/adding_reusable_tools.md)
     - [Code Style & Conventions](development/code_style.md)
     - [Contribution Workflow](development/submission_workflow.md)
+    - [CI & Release Workflows](development/ci_workflows.md)
     - [Engine Entry Points](development/main_py.md)
     - [Tool Distribution](development/download_py.md)
     - [Console Output Helpers](development/utils_printer.md)

@@ -7,6 +7,7 @@ This section is aimed at contributors extending the engine or building new modul
 - [Sharing Reusable Tools](adding_reusable_tools.md)
 - [Code Style & Conventions](code_style.md)
 - [Contribution Workflow](submission_workflow.md)
+- [CI & Release Workflows](ci_workflows.md)
 - [Engine Entry Points](main_py.md)
 - [Tool Distribution](download_py.md)
 - [Console Output Helpers](utils_printer.md)

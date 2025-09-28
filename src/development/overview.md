@@ -8,3 +8,5 @@ Key principles guiding contributions:
 - **Avoid regressions for other modules.** Run affected manifests and unit tests before submitting changes.
 
 When adding new capabilities, capture them in both documentation and specs so other contributors understand how to reuse them.
+
+Pull requests must pass the GitHub Actions pipelines described in [CI & Release Workflows](ci_workflows.md); keep `main` merged into your branch so cross-platform builds and SonarCloud analysis stay healthy.
