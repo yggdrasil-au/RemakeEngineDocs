@@ -1,6 +1,6 @@
 # Console Output Helpers
 
-Legacy scripts used `Utils/printer.py`. EngineNet replaces this with `EngineSdk`, available to Lua and JavaScript through the injected `sdk` modules.
+Earlier scripts used `Utils/printer.py`. EngineNet replaces this with `EngineSdk`, available to Lua and JavaScript through the injected `sdk` modules.
 
 Key methods:
 - `EngineSdk.Print(message, color?, newline?)` ? Emits coloured console output and GUI notifications.

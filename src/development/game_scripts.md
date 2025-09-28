@@ -10,7 +10,7 @@
 - The helper surface mirrors the Lua SDK, including tool resolution and EngineSdk wrappers.
 
 ## External executables
-- For legacy Python or third-party tools set `script_type` to the executable name (e.g., `python`, `quickbms`).
+- For Python or third-party tools set `script_type` to the executable name (e.g., `python`, `quickbms`).
 - Provide arguments via `args` and rely on placeholders to inject paths.
 
 ### Best practices

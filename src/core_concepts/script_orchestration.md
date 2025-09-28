@@ -4,7 +4,7 @@ Each operation specifies how the engine should execute work. The `script_type` f
 
 - `lua` ? Runs a Lua script through MoonSharp. The engine exposes globals such as `tool`, `argv`, `emit`, `prompt`, and `progress`, plus a rich `sdk` table for filesystem and HTTP helpers.
 - `js` ? Executes JavaScript via the embedded Jint engine with parity to the Lua helpers.
-- `python` (default) ? Launches an external process via `ProcessRunner`. Although Python support remains for legacy modules, new work should prefer Lua or JavaScript.
+- `python` (default) ? Launches an external process via `ProcessRunner`. Python support remains available when you need to call external interpreters or third-party tooling.
 - `engine` ? Invokes a built-in handler implemented in C#. Current actions include `download_tools`, `format-extract`, `format-convert`, `validate-files`, `rename-folders`, and `flatten`.
 - Any other value ? Treated as an executable name. The engine resolves arguments via placeholders and passes them to `ProcessRunner` unchanged.
 

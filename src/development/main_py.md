@@ -1,12 +1,10 @@
 # Engine Entry Points
 
-The legacy engine relied on `main.py`. EngineNet replaces it with two managed entry points:
+EngineNet exposes two managed entry points:
 
 - **`EngineNet/Program.cs`** ? Console entry point that selects between GUI and CLI modes.
 - **`EngineNet.Interface.GUI.Avalonia/`** ? Desktop application hosting the Avalonia UI.
 
-When porting old modules:
-- Move initialisation code into manifest `init` operations or dedicated scripts.
-- Replace Python-specific helper calls with Lua/JavaScript equivalents or built-in engine actions.
-
-Retain `LegacyEnginePy/main.py` only for historical reference or when troubleshooting legacy modules.
+When building modules:
+- Keep init logic in manifest operations (`init = true`) or dedicated scripts executed via `script_type`.
+- Use the CLI or GUI entry points above to test workflows end-to-end.

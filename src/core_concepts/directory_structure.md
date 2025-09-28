@@ -5,7 +5,6 @@ RemakeEngine/
 ?? EngineNet/                        # Core engine assemblies and CLI
 ?? EngineNet.Interface.GUI.Avalonia/ # Desktop GUI
 ?? EngineNet/specs/                  # Specification docs that describe expected behaviour
-?? LegacyEnginePy/                   # Archived Python implementation (read-only)
 ?? RemakeRegistry/
 ?  ?? Games/
 ?  ?  ?? <ModuleName>/              # Operations, scripts, and assets for a specific game
