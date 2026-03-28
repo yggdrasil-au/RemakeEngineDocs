@@ -1,6 +1,6 @@
-major = 0
-minor = 0
-patch = 1
-isAlpha = false
+major = 2
+minor = 17
+patch = 3
+isAlpha = true
 isBeta = false
 isNodeProject = false

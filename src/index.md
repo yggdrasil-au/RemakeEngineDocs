@@ -1,22 +1,40 @@
-# Welcome to the Remake Engine Docs
+# Welcome to Remake Engine Documentation
 
-Remake Engine is a configuration-driven orchestration layer for rebuilding legally owned games. The current generation of the project centres on the C#/.NET 8 runtime **EngineNet**, which powers both a menu-driven CLI and an Avalonia desktop GUI. The legacy Python automation remains in the repository for historical context, but all active development targets EngineNet.
+Remake Engine is a configuration-first orchestration engine for repeatable game rebuild workflows. The active runtime is EngineNet, a .NET 10 application that powers CLI, TUI, and GUI experiences from one core execution pipeline.
 
-These docs explain how the engine is structured, how you can run it, and how to author new game modules that reuse its tooling.
+This book is focused on two audiences:
 
-## What the Engine Provides
-- **Configuration-first workflows** written in TOML or JSON so you do not need to modify the core code for each game.
-- **Embedded Lua and JavaScript interpreters** with shared helper modules for filesystem access, prompts, process execution, and SQLite integration.
-- **Built-in helpers** that cover common extraction and conversion tasks (QuickBMS, TXD extraction, media transcoding, validation, directory flattening).
-- **Extensible tool management** capable of downloading platform-specific binaries declared in module manifests.
+- Module authors who define and maintain operations, placeholders, and tools.
+- Engine contributors who need a reliable map of runtime flow and interface behavior.
 
-## Target Audience
-The project primarily serves module authors, preservationists, and developers who want predictable pipelines for asset extraction and rebuilds. End users interact with the simple GUI, whereas module authors typically use the CLI or the developer-centric command surface.
+## What You Can Do Here
 
-## Legal Context
-Remake Engine never ships copyrighted assets. You must provide your own legally obtained game data. The engine is released for non-commercial educational and archival use; consult the [license](license_legal/license.md) for details.
+- Learn how to build and run the engine locally.
+- Author module manifests with TOML-first examples.
+- Understand how operations are loaded, resolved, and dispatched.
+- Pick the right interface for your workflow: CLI, TUI, or GUI.
+- Find schema references used for editor validation.
+
+## Read in This Order
+
+1. Start with Getting Started.
+2. Continue with Module Authoring.
+3. Use Architecture and Interfaces to understand behavior and execution paths.
+4. Use Reference for placeholders and schema links.
+
+## Source of Truth Policy
+
+When behavior in this book and source code disagree, treat source files and schemas as canonical. In practice, that means keeping these areas in sync with runtime updates:
+
+- schemas/operations.schema.json and schemas/operations.toml.md
+- schemas/config.schema.json
+- schemas/game.schema.json
+- schemas/tools.schema.json and schemas/tools.toml.md
+
+## Legal and Asset Policy
+
+Remake Engine does not ship copyrighted game assets. You must provide your own legally obtained data.
 
 ## Contributing
-Engine changes are driven by real modules. If you are building a module and find a missing capability, follow the contribution guide in [RemakeEngineDocs/src/CONTRIBUTING.md](CONTRIBUTING.md) and update the relevant specification in `EngineNet/specs/` alongside your code.
 
-Enjoy exploring, extracting, and rebuilding.
+Documentation updates are part of feature delivery. See [Documentation Contributions](CONTRIBUTING.md) for workflow and style rules.

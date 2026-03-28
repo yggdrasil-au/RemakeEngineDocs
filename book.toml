@@ -3,7 +3,6 @@ authors = ["samarixum"]
 language = "en"
 src = "src"
 title = "Remake Engine Docs"
-multilingual = false
 [output.html]
 default-theme = "Coal"
 preferred-dark-theme = "Ayu"
