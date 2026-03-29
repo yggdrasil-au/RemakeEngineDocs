@@ -15,7 +15,7 @@ ScriptActionDispatcher selects an IAction implementation based on script_type. E
 
 When new Lua globals are exposed by engine code, keep API definition files updated for editor tooling and documentation:
 
-- EngineApps/api_definitions/api_definitions.lua
+- EngineApps/Addons/RemakeEngineRuntime/library/api_definitions.lua
 - EngineApps/api_definitions/api_definitions.d.ts
 - EngineApps/api_definitions/api_definitions.pyi
 
