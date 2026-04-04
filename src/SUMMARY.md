@@ -17,6 +17,7 @@
 
 # Architecture
 - [Core Runtime](architecture/core-runtime.md)
+- [Shared Library](architecture/shared-library.md)
 - [Execution Flow](architecture/execution-flow.md)
 - [Script Engines](architecture/script-engines.md)
 

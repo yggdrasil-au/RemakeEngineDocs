@@ -20,3 +20,9 @@ When new Lua globals are exposed by engine code, keep API definition files updat
 - EngineApps/api_definitions/api_definitions.pyi
 
 Also update the demo Lua feature script when introducing new Lua-facing behavior.
+
+## Related Docs
+
+- [core-runtime.md](core-runtime.md)
+- [shared-library.md](shared-library.md)
+- [../index.md](../index.md)

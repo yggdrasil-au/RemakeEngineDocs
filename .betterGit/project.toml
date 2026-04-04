@@ -1,6 +1,6 @@
 major = 2
 minor = 17
-patch = 4
-isAlpha = true
+patch = 22
+isAlpha = false
 isBeta = false
 isNodeProject = false

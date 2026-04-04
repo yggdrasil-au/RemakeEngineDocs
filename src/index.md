@@ -12,6 +12,7 @@ This book is focused on two audiences:
 - Learn how to build and run the engine locally.
 - Author module manifests with TOML-first examples.
 - Understand how operations are loaded, resolved, and dispatched.
+- Learn how the shared serialization layer supports Core and script runtimes.
 - Pick the right interface for your workflow: CLI, TUI, or GUI.
 - Find schema references used for editor validation.
 

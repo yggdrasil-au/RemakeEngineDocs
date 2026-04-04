@@ -18,9 +18,17 @@ EngineNet.Core is the runtime layer behind all interfaces. It provides loading, 
 - Services/: operation loading, command execution, launcher, and registry services
 - Data/: runtime models
 - Utils/: execution context and placeholder resolvers
-- Serialization/: TOML, JSON, and YAML parsing helpers
+- Shared/: TOML, JSON, and YAML parsing helpers and document-model conversion utilities
 - ExternalTools/: tool acquisition and resolution support
+
+The reusable serialization helpers live in the sibling [Shared library](shared-library.md) and are referenced by Core instead of being owned by it.
 
 ## Interface Boundary
 
 Interfaces call into core through a narrowed contract exposed by Interface.Main. This protects UI layers from direct deep coupling to runtime internals.
+
+## Related Docs
+
+- [shared-library.md](shared-library.md)
+- [execution-flow.md](execution-flow.md)
+- [script-engines.md](script-engines.md)
