@@ -3,7 +3,7 @@
 The documentation lives in `RemakeEngineDocs/` and is published via mdBook. Contributions that align the docs with EngineNet or improve module author guidance are welcome.
 
 ## Workflow
-1. Follow the main project guidelines in [`CONTRIBUTING.md`](../CONTRIBUTING.md).
+1. Follow the main project guidelines in [CONTRIBUTING.md](https://github.com/yggdrasil-au/RemakeEngine/blob/main/CONTRIBUTING.md).
 2. Edit the Markdown sources inside `RemakeEngineDocs/src/`.
 3. Update `SUMMARY.md` if you add, remove, or rename pages.
 4. Build locally with `mdbook build RemakeEngineDocs` (optional) to preview changes.

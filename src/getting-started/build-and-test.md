@@ -11,13 +11,13 @@ dotnet build RemakeEngine.slnx
 ## Test
 
 ```pwsh
-dotnet test RemakeEngine.slnx --nologo
+dotnet test EngineNetTest/EngineNetTest.csproj --nologo
 ```
 
 ## Optional Coverage Collection
 
 ```pwsh
-dotnet test RemakeEngine.slnx --collect "XPlat Code Coverage"
+dotnet test EngineNetTest/EngineNetTest.csproj --collect "XPlat Code Coverage"
 ```
 
 ## Build Documentation Locally
